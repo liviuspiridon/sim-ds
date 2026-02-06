@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Design System v1.0</title>
+    <title>Design System v2.0</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Saira:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -117,6 +117,7 @@
         /* Secondary */
         .btn-secondary { background-color: transparent; border: 1px solid var(--orange-500); color: var(--orange-500); }
         .btn-secondary.interactive:hover, .btn-secondary.is-hover { background-color: var(--orange-100); }
+        /* FIX: Pressed state keeps default border, only background changes */
         .btn-secondary.interactive:active, .btn-secondary.is-pressed { background-color: var(--orange-200); }
         .btn-secondary.is-inactive { border-color: var(--orange-300); color: var(--orange-300); pointer-events: none; }
         
@@ -131,7 +132,7 @@
         .btn-link.interactive:hover, .btn-link.is-hover { color: var(--orange-600); text-decoration: none; }
         .btn-link.interactive:hover span, .btn-link.is-hover span { text-decoration: underline; }
         
-        /* FIX: Pressed state visual feedback */
+        /* Pressed state visual feedback */
         .btn-link.interactive:active, .btn-link.is-pressed { color: var(--orange-700); }
         .btn-link.interactive:active span, .btn-link.is-pressed span { color: var(--orange-700); }
         
@@ -155,17 +156,55 @@
         /* Active Bar */
         .page-tab-item.active::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background-color: var(--orange-500); z-index: 1; }
         
-        /* FIX: Pressed state background gray-100 */
+        /* Pressed state background gray-100 */
         .page-tab-item.is-pressed, .page-tab-item:active { color: var(--gray-900); background-color: var(--gray-100); }
         .page-tab-item.is-disabled, .page-tab-item:disabled { color: var(--gray-400); pointer-events: none; }
+
+        /* --- BREADCRUMBS --- */
+        .breadcrumb-nav { display: flex; align-items: center; flex-wrap: wrap; }
+        
+        .breadcrumb-item { display: flex; align-items: center; text-decoration: none; font-family: var(--body-sm-font); font-size: var(--body-sm-size); color: var(--gray-800); }
+        
+        /* Link State (Levels 1-3 etc) */
+        .breadcrumb-item.interactive { font-weight: var(--weight-regular); cursor: pointer; transition: color 0.2s ease; }
+        .breadcrumb-item.interactive:hover { color: var(--orange-600); text-decoration: underline; }
+        
+        /* Active/Current Page State (Last Level) */
+        .breadcrumb-item.active { font-family: var(--body-sm-b-font); font-weight: var(--weight-bold); cursor: default; pointer-events: none; }
+        
+        /* Separator */
+        .breadcrumb-separator { margin: 0 12px; font-size: 10px; color: var(--gray-500); display: flex; align-items: center; }
+
+        /* --- PAGINATION --- */
+        .pagination-container { display: flex; align-items: center; gap: 4px; }
+        .pagination-item { display: inline-flex; align-items: center; justify-content: center; min-width: 32px; height: 32px; padding: 0 6px; border-radius: var(--border-radius); font-family: var(--body-def-font); font-size: var(--body-def-size); color: var(--gray-800); text-decoration: none; transition: all 0.2s ease; cursor: pointer; user-select: none; }
+        
+        /* Hover state gray-100 */
+        .pagination-item:hover { background-color: var(--gray-100); }
+        
+        /* Active state is NOT bold */
+        .pagination-item.active { background-color: var(--orange-500); color: var(--gray-000); font-weight: var(--weight-regular); }
+        
+        /* Pressed state gray-200 */
+        .pagination-item:active, .pagination-item.is-pressed { background-color: var(--gray-200); color: var(--gray-800); }
+        
+        .pagination-item.is-disabled { color: var(--gray-400); pointer-events: none; cursor: default; }
+
+        /* Prev/Next Buttons */
+        .pagination-prev, .pagination-next { width: auto; padding: 0 16px; }
+
 
         /* --- INPUT TEXT FIELDS --- */
         .input-wrapper { display: flex; flex-direction: column; width: 100%; max-width: 320px; position: relative; }
         .input-label { font-family: var(--body-sm-b-font); font-size: var(--body-sm-b-size); font-weight: var(--body-sm-b-weight); line-height: var(--body-sm-b-lh); color: var(--gray-800); margin-bottom: 4px; display: block; }
         .input-inner-wrap { position: relative; width: 100%; }
-        .input-field { font-family: var(--body-def-font); font-size: var(--body-def-size); font-weight: var(--body-def-weight); line-height: var(--body-def-lh); color: var(--gray-800); width: 100%; height: 44px; padding: 8px 12px; background-color: var(--gray-000); border: 1px solid var(--gray-500); border-radius: var(--border-radius); outline: none; transition: all 0.2s ease-in-out; }
+        
+        /* Default border gray-400 */
+        .input-field { font-family: var(--body-def-font); font-size: var(--body-def-size); font-weight: var(--body-def-weight); line-height: var(--body-def-lh); color: var(--gray-800); width: 100%; height: 44px; padding: 8px 12px; background-color: var(--gray-000); border: 1px solid var(--gray-400); border-radius: var(--border-radius); outline: none; transition: all 0.2s ease-in-out; }
         .input-field::placeholder { color: var(--gray-400); }
-        .input-field:hover { border-color: var(--gray-500); }
+        
+        /* Hover border gray-600 */
+        .input-field:hover { border-color: var(--gray-600); }
         .input-field:focus, .input-field.is-focused { border-color: var(--gray-500); box-shadow: 0 0 0 4px var(--orange-200); }
         .input-field.is-error { border-color: var(--red); }
         .input-field.is-error:focus { box-shadow: none; }
@@ -187,8 +226,10 @@
 
         /* --- SELECT (DROPDOWN) --- */
         .select-wrapper { position: relative; width: 100%; max-width: 320px; display: flex; flex-direction: column; }
-        .select-trigger { font-family: var(--body-def-font); font-size: var(--body-def-size); color: var(--gray-800); width: 100%; height: 44px; padding: 8px 12px; background-color: var(--gray-000); border: 1px solid var(--gray-500); border-radius: var(--border-radius); outline: none; transition: all 0.2s ease-in-out; cursor: pointer; display: flex; align-items: center; justify-content: space-between; user-select: none; }
-        .select-trigger:hover { border-color: var(--gray-500); }
+        /* Default border gray-400 */
+        .select-trigger { font-family: var(--body-def-font); font-size: var(--body-def-size); color: var(--gray-800); width: 100%; height: 44px; padding: 8px 12px; background-color: var(--gray-000); border: 1px solid var(--gray-400); border-radius: var(--border-radius); outline: none; transition: all 0.2s ease-in-out; cursor: pointer; display: flex; align-items: center; justify-content: space-between; user-select: none; }
+        /* Hover border gray-600 */
+        .select-trigger:hover { border-color: var(--gray-600); }
         .select-trigger:focus, .select-wrapper.is-open .select-trigger, .select-trigger.is-focused { border-color: var(--gray-500); box-shadow: 0 0 0 4px var(--orange-200); }
         .select-trigger.has-value { color: var(--gray-800); }
         .select-trigger.is-placeholder { color: var(--gray-400); }
@@ -196,13 +237,19 @@
         .select-trigger i { color: var(--gray-500); font-size: 14px; transition: transform 0.2s ease; }
         .select-wrapper.is-open .select-trigger i { transform: rotate(180deg); }
 
-        .select-menu { position: absolute; top: 100%; left: 0; right: 0; margin-top: 4px; background: var(--gray-000); border: 1px solid var(--gray-200); border-radius: var(--border-radius); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); z-index: 100; max-height: 200px; overflow-y: auto; display: none; padding: 4px 0; }
+        /* Dropdown Menu Styling */
+        .select-menu { position: absolute; top: 100%; left: 0; right: 0; margin-top: 4px; background: var(--gray-000); border: 1px solid var(--gray-200); border-radius: var(--border-radius); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); z-index: 100; max-height: 200px; overflow-y: auto; display: none; padding: 4px; }
         .select-wrapper.is-open .select-menu { display: block; animation: fadeIn 0.15s ease; }
 
-        .select-option { padding: 10px 12px; font-size: 16px; color: var(--gray-800); cursor: pointer; transition: background-color 0.15s ease; }
-        .select-option:hover { background-color: var(--orange-100); }
-        .select-option.is-selected { background-color: var(--orange-100); color: var(--orange-500); font-weight: var(--weight-medium); }
-
+        /* Options styling */
+        .select-option { padding: 10px 12px; font-size: 16px; color: var(--gray-800); cursor: pointer; transition: background-color 0.15s ease; border-radius: 4px; margin-bottom: 1px; }
+        
+        /* Hover state gray-100 */
+        .select-option:hover { background-color: var(--gray-100); }
+        
+        /* Selected state text gray-400, no bg */
+        .select-option.is-selected { color: var(--gray-400); background-color: transparent; pointer-events: none; }
+        
         .select-trigger.is-error { border-color: var(--red); }
         .select-trigger.is-error:focus { box-shadow: none; }
         .select-trigger.is-success { border-color: var(--green); }
@@ -212,8 +259,8 @@
 
 
         /* --- CHIPS --- */
-        /* Single Select (Default): 16px padding both sides */
-        .chip { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 32px; padding: 0 16px; border-radius: 100px; border: 1px solid var(--gray-500); background-color: var(--gray-000); font-family: var(--body-sm-font); font-size: var(--body-sm-size); font-weight: var(--weight-regular); color: var(--gray-800); cursor: pointer; transition: all 0.2s ease; text-decoration: none; user-select: none; }
+        /* FIX: Height 40px */
+        .chip { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 40px; padding: 0 16px; border-radius: 100px; border: 1px solid var(--gray-400); background-color: var(--gray-000); font-family: var(--body-sm-font); font-size: var(--body-sm-size); font-weight: var(--weight-regular); color: var(--gray-800); cursor: pointer; transition: all 0.2s ease; text-decoration: none; user-select: none; }
         
         /* Multi Select (With Icon): 12px left, 16px right */
         .chip:has(i), .chip[data-type="multi"] { padding: 0 16px 0 12px; }
@@ -327,17 +374,6 @@
         .type-header { font-size: 12px; font-weight: var(--weight-bold); color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px; }
         .type-cell { font-size: 14px; color: var(--gray-600); }
         .type-preview { color: var(--gray-800); }
-        .text-h1 { font-family: var(--h1-font); font-size: var(--h1-size); font-weight: var(--h1-weight); line-height: var(--h1-lh); }
-        .text-h2 { font-family: var(--h2-font); font-size: var(--h2-size); font-weight: var(--h2-weight); line-height: var(--h2-lh); }
-        .text-h3 { font-family: var(--h3-font); font-size: var(--h3-size); font-weight: var(--h3-weight); line-height: var(--h3-lh); }
-        .text-h4 { font-family: var(--h4-font); font-size: var(--h4-size); font-weight: var(--h4-weight); line-height: var(--h4-lh); }
-        .text-h5 { font-family: var(--h5-font); font-size: var(--h5-size); font-weight: var(--h5-weight); line-height: var(--h5-lh); }
-        .text-h6 { font-family: var(--h6-font); font-size: var(--h6-size); font-weight: var(--h6-weight); line-height: var(--h6-lh); }
-        .text-body-large { font-family: var(--body-lg-font); font-size: var(--body-lg-size); font-weight: var(--body-lg-weight); line-height: var(--body-lg-lh); }
-        .text-body-default { font-family: var(--body-def-font); font-size: var(--body-def-size); font-weight: var(--body-def-weight); line-height: var(--body-def-lh); }
-        .text-body-small { font-family: var(--body-sm-font); font-size: var(--body-sm-size); font-weight: var(--body-sm-weight); line-height: var(--body-sm-lh); }
-        .text-body-small-bold { font-family: var(--body-sm-b-font); font-size: var(--body-sm-b-size); font-weight: var(--body-sm-b-weight); line-height: var(--body-sm-b-lh); }
-        
         .icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
         .icon-card { background: #FFFFFF; border: 1px solid var(--gray-200); padding: 16px; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; transition: border-color 0.2s; }
         .icon-card:hover { border-color: var(--orange-500); }
@@ -345,8 +381,7 @@
         .icon-box-48 { width: 48px; height: 48px; background: var(--gray-100); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: var(--gray-600); }
         .icon-box-32 { width: 32px; height: 32px; background: var(--gray-100); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: var(--gray-600); }
         .icon-meta { font-family: monospace; font-size: 11px; color: var(--gray-500); text-align: right; }
-        .fa-24 { font-size: 24px; }
-        .fa-16 { font-size: 16px; }
+        .fa-24 { font-size: 24px; } .fa-16 { font-size: 16px; }
         
         .placeholder-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 40px; border: 2px dashed var(--gray-200); border-radius: 12px; background-color: var(--gray-000); text-align: center; }
         .placeholder-icon { font-size: 48px; color: var(--gray-300); margin-bottom: 16px; }
@@ -361,8 +396,8 @@
         <div class="sidebar-header">
             <div class="sidebar-title">Design System</div>
             <div class="sidebar-subtitle">
-                <span>Version 1.0</span>
-                <span style="font-size: 11px; font-weight: 400; color: var(--gray-400);">Jan 29, 2026</span>
+                <span>Version 2.0</span>
+                <span style="font-size: 11px; font-weight: 400; color: var(--gray-400);">Feb 06, 2026</span>
             </div>
         </div>
         <nav class="sidebar-nav">
@@ -379,8 +414,8 @@
                     <div class="nav-category-title">⚡ Actions & Selection</div>
                     <a class="nav-subitem" href="#" data-target="button">Button <i class="fa-solid fa-check nav-check-icon"></i></a>
                     <a class="nav-subitem" href="#" data-target="tabs">Tabs <i class="fa-solid fa-check nav-check-icon"></i></a>
-                    <a class="nav-subitem" href="#" data-target="breadcrumbs">Breadcrumbs</a>
-                    <a class="nav-subitem" href="#" data-target="pagination">Pagination</a>
+                    <a class="nav-subitem" href="#" data-target="breadcrumbs">Breadcrumbs <i class="fa-solid fa-check nav-check-icon"></i></a>
+                    <a class="nav-subitem" href="#" data-target="pagination">Pagination <i class="fa-solid fa-check nav-check-icon"></i></a>
                 </div>
                 <div class="nav-category">
                     <div class="nav-category-title">⌨️ Form Inputs</div>
@@ -436,28 +471,28 @@
                     <div class="interactive-container flex-container">
                         <div class="state-label">Default</div>
                         <div><button class="btn btn-primary interactive">Label</button></div>
-                        <div><button class="btn btn-primary interactive"><i class="fa-regular fa-square-plus"></i> Label</button></div>
-                        <div><button class="btn btn-primary btn-icon interactive"><i class="fa-regular fa-square-plus"></i></button></div>
+                        <div><button class="btn btn-primary interactive"><i class="fa-regular fa-plus"></i> Label</button></div>
+                        <div><button class="btn btn-primary btn-icon interactive"><i class="fa-regular fa-plus"></i></button></div>
                         <div class="helper-text"><i class="fa-regular fa-hand-pointer"></i> INTERACTIVE DEMO</div>
                     </div>
                     <div class="static-rows">
                         <div class="common-grid">
                             <div class="state-label">Hover</div>
                             <div><button class="btn btn-primary is-hover">Label</button></div>
-                            <div><button class="btn btn-primary is-hover"><i class="fa-regular fa-square-plus"></i> Label</button></div>
-                            <div><button class="btn btn-primary btn-icon is-hover"><i class="fa-regular fa-square-plus"></i></button></div>
+                            <div><button class="btn btn-primary is-hover"><i class="fa-regular fa-plus"></i> Label</button></div>
+                            <div><button class="btn btn-primary btn-icon is-hover"><i class="fa-regular fa-plus"></i></button></div>
                         </div>
                         <div class="common-grid">
                             <div class="state-label">Pressed</div>
                             <div><button class="btn btn-primary is-pressed">Label</button></div>
-                            <div><button class="btn btn-primary is-pressed"><i class="fa-regular fa-square-plus"></i> Label</button></div>
-                            <div><button class="btn btn-primary btn-icon is-pressed"><i class="fa-regular fa-square-plus"></i></button></div>
+                            <div><button class="btn btn-primary is-pressed"><i class="fa-regular fa-plus"></i> Label</button></div>
+                            <div><button class="btn btn-primary btn-icon is-pressed"><i class="fa-regular fa-plus"></i></button></div>
                         </div>
                         <div class="common-grid">
                             <div class="state-label">Inactive</div>
                             <div><button class="btn btn-primary is-inactive">Label</button></div>
-                            <div><button class="btn btn-primary is-inactive"><i class="fa-regular fa-square-plus"></i> Label</button></div>
-                            <div><button class="btn btn-primary btn-icon is-inactive"><i class="fa-regular fa-square-plus"></i></button></div>
+                            <div><button class="btn btn-primary is-inactive"><i class="fa-regular fa-plus"></i> Label</button></div>
+                            <div><button class="btn btn-primary btn-icon is-inactive"><i class="fa-regular fa-plus"></i></button></div>
                         </div>
                     </div>
                 </div>
@@ -468,28 +503,28 @@
                     <div class="interactive-container flex-container">
                         <div class="state-label">Default</div>
                         <div><button class="btn btn-secondary interactive">Label</button></div>
-                        <div><button class="btn btn-secondary interactive"><i class="fa-regular fa-square-plus"></i> Label</button></div>
-                        <div><button class="btn btn-secondary btn-icon interactive"><i class="fa-regular fa-square-plus"></i></button></div>
+                        <div><button class="btn btn-secondary interactive"><i class="fa-regular fa-pen"></i> Label</button></div>
+                        <div><button class="btn btn-secondary btn-icon interactive"><i class="fa-regular fa-pen"></i></button></div>
                         <div class="helper-text"><i class="fa-regular fa-hand-pointer"></i> INTERACTIVE DEMO</div>
                     </div>
                     <div class="static-rows">
                         <div class="common-grid">
                             <div class="state-label">Hover</div>
                             <div><button class="btn btn-secondary is-hover">Label</button></div>
-                            <div><button class="btn btn-secondary is-hover"><i class="fa-regular fa-square-plus"></i> Label</button></div>
-                            <div><button class="btn btn-secondary btn-icon is-hover"><i class="fa-regular fa-square-plus"></i></button></div>
+                            <div><button class="btn btn-secondary is-hover"><i class="fa-regular fa-pen"></i> Label</button></div>
+                            <div><button class="btn btn-secondary btn-icon is-hover"><i class="fa-regular fa-pen"></i></button></div>
                         </div>
                          <div class="common-grid">
                             <div class="state-label">Pressed</div>
                             <div><button class="btn btn-secondary is-pressed">Label</button></div>
-                            <div><button class="btn btn-secondary is-pressed"><i class="fa-regular fa-square-plus"></i> Label</button></div>
-                            <div><button class="btn btn-secondary btn-icon is-pressed"><i class="fa-regular fa-square-plus"></i></button></div>
+                            <div><button class="btn btn-secondary is-pressed"><i class="fa-regular fa-pen"></i> Label</button></div>
+                            <div><button class="btn btn-secondary btn-icon is-pressed"><i class="fa-regular fa-pen"></i></button></div>
                         </div>
                          <div class="common-grid">
                             <div class="state-label">Inactive</div>
                             <div><button class="btn btn-secondary is-inactive">Label</button></div>
-                            <div><button class="btn btn-secondary is-inactive"><i class="fa-regular fa-square-plus"></i> Label</button></div>
-                            <div><button class="btn btn-secondary btn-icon is-inactive"><i class="fa-regular fa-square-plus"></i></button></div>
+                            <div><button class="btn btn-secondary is-inactive"><i class="fa-regular fa-pen"></i> Label</button></div>
+                            <div><button class="btn btn-secondary btn-icon is-inactive"><i class="fa-regular fa-pen"></i></button></div>
                         </div>
                     </div>
                 </div>
@@ -500,28 +535,28 @@
                     <div class="interactive-container flex-container">
                         <div class="state-label">Default</div>
                         <div><button class="btn btn-ghost interactive">Label</button></div>
-                        <div><button class="btn btn-ghost interactive"><i class="fa-regular fa-square-plus"></i> Label</button></div>
-                        <div><button class="btn btn-ghost btn-icon interactive"><i class="fa-regular fa-square-plus"></i></button></div>
+                        <div><button class="btn btn-ghost interactive"><i class="fa-regular fa-trash-can"></i> Label</button></div>
+                        <div><button class="btn btn-ghost btn-icon interactive"><i class="fa-regular fa-trash-can"></i></button></div>
                         <div class="helper-text"><i class="fa-regular fa-hand-pointer"></i> INTERACTIVE DEMO</div>
                     </div>
                     <div class="static-rows">
                         <div class="common-grid">
                             <div class="state-label">Hover</div>
                             <div><button class="btn btn-ghost is-hover">Label</button></div>
-                            <div><button class="btn btn-ghost is-hover"><i class="fa-regular fa-square-plus"></i> Label</button></div>
-                            <div><button class="btn btn-ghost btn-icon is-hover"><i class="fa-regular fa-square-plus"></i></button></div>
+                            <div><button class="btn btn-ghost is-hover"><i class="fa-regular fa-trash-can"></i> Label</button></div>
+                            <div><button class="btn btn-ghost btn-icon is-hover"><i class="fa-regular fa-trash-can"></i></button></div>
                         </div>
                         <div class="common-grid">
                             <div class="state-label">Pressed</div>
                             <div><button class="btn btn-ghost is-pressed">Label</button></div>
-                            <div><button class="btn btn-ghost is-pressed"><i class="fa-regular fa-square-plus"></i> Label</button></div>
-                            <div><button class="btn btn-ghost btn-icon is-pressed"><i class="fa-regular fa-square-plus"></i></button></div>
+                            <div><button class="btn btn-ghost is-pressed"><i class="fa-regular fa-trash-can"></i> Label</button></div>
+                            <div><button class="btn btn-ghost btn-icon is-pressed"><i class="fa-regular fa-trash-can"></i></button></div>
                         </div>
                         <div class="common-grid">
                             <div class="state-label">Inactive</div>
                             <div><button class="btn btn-ghost is-inactive">Label</button></div>
-                            <div><button class="btn btn-ghost is-inactive"><i class="fa-regular fa-square-plus"></i> Label</button></div>
-                            <div><button class="btn btn-ghost btn-icon is-inactive"><i class="fa-regular fa-square-plus"></i></button></div>
+                            <div><button class="btn btn-ghost is-inactive"><i class="fa-regular fa-trash-can"></i> Label</button></div>
+                            <div><button class="btn btn-ghost btn-icon is-inactive"><i class="fa-regular fa-trash-can"></i></button></div>
                         </div>
                     </div>
                 </div>
@@ -532,24 +567,24 @@
                     <div class="interactive-container flex-container">
                         <div class="state-label">Default</div>
                         <div><button class="btn btn-link interactive"><span>Label</span></button></div>
-                        <div><button class="btn btn-link interactive"><i class="fa-regular fa-square-plus"></i> <span>Label</span></button></div>
+                        <div><button class="btn btn-link interactive"><i class="fa-regular fa-chevron-right"></i> <span>Label</span></button></div>
                         <div class="helper-text"><i class="fa-regular fa-hand-pointer"></i> INTERACTIVE DEMO</div>
                     </div>
                     <div class="static-rows">
                         <div class="common-grid">
                             <div class="state-label">Hover</div>
                             <div><button class="btn btn-link is-hover"><span>Label</span></button></div>
-                            <div><button class="btn btn-link is-hover"><i class="fa-regular fa-square-plus"></i> <span>Label</span></button></div>
+                            <div><button class="btn btn-link is-hover"><i class="fa-regular fa-chevron-right"></i> <span>Label</span></button></div>
                         </div>
                          <div class="common-grid">
                             <div class="state-label">Pressed</div>
                             <div><button class="btn btn-link is-pressed"><span>Label</span></button></div>
-                            <div><button class="btn btn-link is-pressed"><i class="fa-regular fa-square-plus"></i> <span>Label</span></button></div>
+                            <div><button class="btn btn-link is-pressed"><i class="fa-regular fa-chevron-right"></i> <span>Label</span></button></div>
                         </div>
                          <div class="common-grid">
                             <div class="state-label">Inactive</div>
                             <div><button class="btn btn-link is-inactive"><span>Label</span></button></div>
-                            <div><button class="btn btn-link is-inactive"><i class="fa-regular fa-square-plus"></i> <span>Label</span></button></div>
+                            <div><button class="btn btn-link is-inactive"><i class="fa-regular fa-chevron-right"></i> <span>Label</span></button></div>
                         </div>
                     </div>
                 </div>
@@ -623,6 +658,116 @@
             </div>
         </section>
 
+        <section id="page-breadcrumbs" class="page-section">
+            <header class="component-header">
+                <h1 class="display-h2">Breadcrumbs</h1>
+                <p class="description">Breadcrumbs indicate the current page's location within a navigational hierarchy.</p>
+            </header>
+            <div class="variant-group">
+                <h3 class="heading-h3">Standard Breadcrumb</h3>
+                <div class="variant-card">
+                    <div class="interactive-container" style="display: flex; justify-content: space-between; align-items: center;">
+                        <nav class="breadcrumb-nav">
+                            <a class="breadcrumb-item interactive">Home</a>
+                            <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                            <a class="breadcrumb-item interactive">Category</a>
+                            <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                            <a class="breadcrumb-item interactive">Sub-category</a>
+                            <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                            <span class="breadcrumb-item active">Current Page</span>
+                        </nav>
+                        <div class="helper-text"><i class="fa-regular fa-hand-pointer"></i> INTERACTIVE DEMO</div>
+                    </div>
+
+                    <div class="static-rows" style="gap: 40px;">
+                        <div style="display: flex; flex-direction: column; gap: 40px;">
+                            <div class="breadcrumb-nav">
+                                <span class="breadcrumb-item active">Level 1</span>
+                            </div>
+
+                            <div class="breadcrumb-nav">
+                                <a class="breadcrumb-item interactive" style="pointer-events: none;">Level 1</a>
+                                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                                <span class="breadcrumb-item active">Level 2</span>
+                            </div>
+
+                            <div class="breadcrumb-nav">
+                                <a class="breadcrumb-item interactive" style="pointer-events: none;">Level 1</a>
+                                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                                <a class="breadcrumb-item interactive" style="pointer-events: none;">Level 2</a>
+                                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                                <span class="breadcrumb-item active">Level 3</span>
+                            </div>
+
+                            <div class="breadcrumb-nav">
+                                <a class="breadcrumb-item interactive" style="pointer-events: none;">Level 1</a>
+                                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                                <a class="breadcrumb-item interactive" style="pointer-events: none;">Level 2</a>
+                                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                                <a class="breadcrumb-item interactive" style="pointer-events: none;">Level 3</a>
+                                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                                <span class="breadcrumb-item active">Level 4</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="page-pagination" class="page-section">
+            <header class="component-header">
+                <h1 class="display-h2">Pagination</h1>
+                <p class="description">Pagination allows users to navigate through a sequence of content pages.</p>
+            </header>
+            <div class="variant-group">
+                <h3 class="heading-h3">Standard Pagination</h3>
+                <div class="variant-card">
+                    <div class="interactive-container flex-container">
+                         <nav class="pagination-container">
+                            <a class="pagination-item pagination-prev is-disabled"><i class="fa-solid fa-chevron-left" style="font-size: 12px; margin-right: 8px;"></i> Prev</a>
+                            <a class="pagination-item pagination-number active">1</a>
+                            <a class="pagination-item pagination-number">2</a>
+                            <a class="pagination-item pagination-number">3</a>
+                            <span class="pagination-item" style="pointer-events: none;">...</span>
+                            <a class="pagination-item pagination-number">10</a>
+                            <a class="pagination-item pagination-next">Next <i class="fa-solid fa-chevron-right" style="font-size: 12px; margin-left: 8px;"></i></a>
+                        </nav>
+                        <div class="helper-text"><i class="fa-regular fa-hand-pointer"></i> INTERACTIVE DEMO</div>
+                    </div>
+
+                    <div class="static-rows">
+                        <div class="common-grid">
+                            <div class="state-label">Default</div>
+                            <div>
+                                <a class="pagination-item" style="pointer-events: none;">1</a>
+                            </div>
+                        </div>
+
+                        <div class="common-grid">
+                            <div class="state-label">Active</div>
+                            <div>
+                                <a class="pagination-item active" style="pointer-events: none;">1</a>
+                            </div>
+                        </div>
+
+                        <div class="common-grid">
+                            <div class="state-label">Hover</div>
+                            <div>
+                                <a class="pagination-item" style="pointer-events: none; background-color: var(--gray-100);">1</a>
+                            </div>
+                        </div>
+
+                        <div class="common-grid">
+                            <div class="state-label">Pressed</div>
+                            <div>
+                                <a class="pagination-item is-pressed" style="pointer-events: none;">1</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="page-text-fields" class="page-section">
             <header class="component-header">
                 <h1 class="display-h2">Text Fields</h1>
@@ -660,8 +805,8 @@
                         </div>
                          <div class="common-grid input-layout">
                             <div class="state-label state-label-offset">Hover</div>
-                            <div class="input-wrapper"><label class="input-label">Label</label><div class="input-inner-wrap"><input type="text" class="input-field" placeholder="Option" style="border-color: var(--gray-500);" readonly tabindex="-1"></div></div>
-                            <div class="input-wrapper input-no-label-offset" style="margin-left: 20px;"><div class="input-inner-wrap"><input type="text" class="input-field" placeholder="Option" style="border-color: var(--gray-500);" readonly tabindex="-1"></div></div>
+                            <div class="input-wrapper"><label class="input-label">Label</label><div class="input-inner-wrap"><input type="text" class="input-field" placeholder="Option" style="border-color: var(--gray-600);" readonly tabindex="-1"></div></div>
+                            <div class="input-wrapper input-no-label-offset" style="margin-left: 20px;"><div class="input-inner-wrap"><input type="text" class="input-field" placeholder="Option" style="border-color: var(--gray-600);" readonly tabindex="-1"></div></div>
                         </div>
                         <div class="common-grid input-layout">
                             <div class="state-label state-label-offset">Focus</div>
@@ -817,13 +962,13 @@
                             <div class="state-label state-label-offset">Hover</div>
                             <div class="select-wrapper">
                                 <label class="input-label">Label</label>
-                                <div class="select-trigger is-placeholder" style="pointer-events: none; border-color: var(--gray-500);">
+                                <div class="select-trigger is-placeholder" style="pointer-events: none; border-color: var(--gray-600);">
                                     <span class="select-value">Select...</span>
                                     <i class="fa-solid fa-chevron-down"></i>
                                 </div>
                             </div>
                             <div class="select-wrapper input-no-label-offset" style="margin-left: 20px;">
-                                <div class="select-trigger is-placeholder" style="pointer-events: none; border-color: var(--gray-500);">
+                                <div class="select-trigger is-placeholder" style="pointer-events: none; border-color: var(--gray-600);">
                                     <span class="select-value">Select...</span>
                                     <i class="fa-solid fa-chevron-down"></i>
                                 </div>
@@ -1335,20 +1480,14 @@
         interactiveChips.forEach(chip => {
             chip.addEventListener('click', function() {
                 const type = this.getAttribute('data-type');
-                
-                // SINGLE SELECT LOGIC (Radio behavior)
                 if (type === 'single') {
                     const groupName = this.getAttribute('data-group');
                     const siblings = document.querySelectorAll(`.chip.interactive[data-group="${groupName}"]`);
-                    
-                    // If clicking an already selected item, do nothing (or deselect if optional, but standard radio enforces one active)
                     if (!this.classList.contains('selected')) {
                          siblings.forEach(sib => siblings !== this && sib.classList.remove('selected'));
                          this.classList.add('selected');
                     }
-                } 
-                // MULTI SELECT LOGIC (Checkbox behavior)
-                else {
+                } else {
                     this.classList.toggle('selected');
                     const icon = this.querySelector('i');
                     if (icon) {
@@ -1391,7 +1530,6 @@
         tabButtons.forEach(btn => {
             btn.addEventListener('click', function(e) {
                 e.preventDefault();
-                // Only if interactive demo
                 if(this.closest('.interactive-container')) {
                     const container = this.closest('.tabs-container, .page-tabs-container');
                     if(container) {
@@ -1405,23 +1543,19 @@
 
         // SELECT (DROPDOWN) INTERACTION
         const selectWrappers = document.querySelectorAll('.interactive-select');
-        
         selectWrappers.forEach(wrapper => {
             const trigger = wrapper.querySelector('.select-trigger');
             const valueDisplay = wrapper.querySelector('.select-value');
             const options = wrapper.querySelectorAll('.select-option');
 
-            // Toggle Open
             trigger.addEventListener('click', (e) => {
                 e.stopPropagation();
-                // Close other selects first
                 selectWrappers.forEach(w => {
                     if(w !== wrapper) w.classList.remove('is-open');
                 });
                 wrapper.classList.toggle('is-open');
             });
 
-            // Option Select
             options.forEach(option => {
                 option.addEventListener('click', (e) => {
                     e.stopPropagation();
@@ -1440,13 +1574,65 @@
             });
         });
 
-        // Close select when clicking outside
         document.addEventListener('click', () => {
             selectWrappers.forEach(wrapper => {
                 wrapper.classList.remove('is-open');
             });
         });
 
+        // PAGINATION LOGIC
+        const paginationContainer = document.querySelector('.pagination-container');
+        if (paginationContainer) {
+            const pageNumbers = paginationContainer.querySelectorAll('.pagination-number');
+            const prevBtn = paginationContainer.querySelector('.pagination-prev');
+            const nextBtn = paginationContainer.querySelector('.pagination-next');
+
+            function updatePaginationState() {
+                const activeIndex = Array.from(pageNumbers).findIndex(el => el.classList.contains('active'));
+                if (activeIndex === 0) {
+                    prevBtn.classList.add('is-disabled');
+                } else {
+                    prevBtn.classList.remove('is-disabled');
+                }
+                if (activeIndex === pageNumbers.length - 1) {
+                    nextBtn.classList.add('is-disabled');
+                } else {
+                    nextBtn.classList.remove('is-disabled');
+                }
+            }
+
+            pageNumbers.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    pageNumbers.forEach(p => p.classList.remove('active'));
+                    this.classList.add('active');
+                    updatePaginationState();
+                });
+            });
+
+            prevBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (this.classList.contains('is-disabled')) return;
+                const activeIndex = Array.from(pageNumbers).findIndex(el => el.classList.contains('active'));
+                if (activeIndex > 0) {
+                    pageNumbers[activeIndex].classList.remove('active');
+                    pageNumbers[activeIndex - 1].classList.add('active');
+                    updatePaginationState();
+                }
+            });
+
+            nextBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (this.classList.contains('is-disabled')) return;
+                const activeIndex = Array.from(pageNumbers).findIndex(el => el.classList.contains('active'));
+                if (activeIndex < pageNumbers.length - 1) {
+                    pageNumbers[activeIndex].classList.remove('active');
+                    pageNumbers[activeIndex + 1].classList.add('active');
+                    updatePaginationState();
+                }
+            });
+            updatePaginationState();
+        }
     </script>
 </body>
 </html>
